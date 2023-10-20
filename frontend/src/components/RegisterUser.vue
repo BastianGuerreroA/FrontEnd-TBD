@@ -50,7 +50,7 @@ export default {
         "correo": this.correo,
         "password": this.password
       };
-      axios.post("http://localhost:8080/register", json)
+      axios.post("http://localhost:8090/api/register", json)
           .then(response => {
             if(response.data == "OK"){
               this.$router.push("/login");

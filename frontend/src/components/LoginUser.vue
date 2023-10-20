@@ -7,8 +7,8 @@
 
       <!-- Login Form -->
       <form v-on:submit.prevent="login">
-        <input type="text" id="login" class="fadeIn second" name="login" placeholder="Correo" v-model = "correo">
-        <input type="text" id="password" class="fadeIn third" name="login" placeholder="Password" v-model ="password">
+        <input type="text" id="login" class="fadeIn second" name="login" placeholder="Correo" v-model = "email">
+        <input type="text" id="password" class="fadeIn third" name="login" placeholder="Password" v-model ="clave">
         <input type="submit" class="fadeIn fourth" value="Log In">
       </form>
 
@@ -33,8 +33,8 @@ export default {
   },
   data: function(){
     return {
-      correo:"",
-      password:"",
+      email:"",
+      clave:"",
       error: false,
       errorMessage: ""
     }
@@ -42,18 +42,20 @@ export default {
   methods:{
     login(){
       let json = {
-        "correo": this.correo,
-        "password": this.password
+        "email": this.email,
+        "clave": this.clave
       };
-      axios.post("http://localhost:8080/login", json)
-          .then(response => {
-            if(response.data == "OK"){
-              this.$router.push("/home/" + this.correo);
-            }else{
-              this.error = true;
-              this.errorMessage = "Usuario o contraseña incorrectos";
-            }
-          })
+      axios.post("http://localhost:8090/api/login", json)
+      .then(response => {
+        console.log(response);
+        if(response.data.status == "ok"){
+          this.$router.push("/home/"+response.data.id);
+        }else{
+          this.error = true;
+          this.errorMessage = "Usuario o contraseña incorrectos";
+        }
+      })
+
     }
   }
 

@@ -9,7 +9,6 @@
 <script>
 import Navbar from "@/components/Navbar.vue";
 import Footer from "@/components/Footer.vue";
-import axios from "axios";
 
 export default {
   name: 'AboutView',
@@ -23,11 +22,8 @@ export default {
     }
   },
   mounted() {
-    this.idUser = this.$route.params.idUser;
-    axios.get("http://localhost:8080/usuario/"+ this.idUser)
-        .then(response => {
-          console.log(response.data);
-        })
+    this.idUser = this.$route.params.id;
+        console.log(this.idUser);
   }
 }
 </script>
