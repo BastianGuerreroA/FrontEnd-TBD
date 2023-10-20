@@ -5,16 +5,21 @@
         <font-awesome-icon :icon="['fas', 'user']" beat size="2xl" style="color: #858585;" />
       </div>
 
+      <div class="form-group">
+        <h2>Create una cuenta!</h2>
+      </div>
+
       <!-- Login Form -->
       <form v-on:submit.prevent="login">
-        <input type="text" id="login" class="fadeIn second" name="login" placeholder="Correo" v-model = "correo">
+        <input type="text" id="login" class="fadeIn second" name="login" placeholder="Correo" v-model ="correo">
         <input type="text" id="password" class="fadeIn third" name="login" placeholder="Password" v-model ="password">
-        <input type="submit" class="fadeIn fourth" value="Log In">
+        <br>
+        <input type="submit" class="fadeIn fourth" value="Register">
       </form>
 
       <!-- Remind Passowrd -->
       <div id="formFooter">
-        <a class="underlineHover"><router-link to="/register">Register</router-link></a>
+        <p>¿Ya tiene una cuenta? <a class="underlineHover"><router-link to="/">Login</router-link></a></p>
       </div>
 
       <div class="alert alert-danger" role="alert" v-if="error">
@@ -33,8 +38,8 @@ export default {
   },
   data: function(){
     return {
-      correo:"",
       password:"",
+      correo:"",
       error: false,
       errorMessage: ""
     }
@@ -45,10 +50,10 @@ export default {
         "correo": this.correo,
         "password": this.password
       };
-      axios.post("http://localhost:8080/login", json)
+      axios.post("http://localhost:8080/register", json)
           .then(response => {
             if(response.data == "OK"){
-              this.$router.push("/about");
+              this.$router.push("/login");
             }else{
               this.error = true;
               this.errorMessage = "Usuario o contraseña incorrectos";
