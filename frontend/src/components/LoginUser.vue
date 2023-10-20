@@ -48,7 +48,7 @@ export default {
       axios.post("http://localhost:8080/login", json)
           .then(response => {
             if(response.data == "OK"){
-              this.$router.push("/about");
+              this.$router.push("/home/" + this.correo);
             }else{
               this.error = true;
               this.errorMessage = "Usuario o contraseña incorrectos";
