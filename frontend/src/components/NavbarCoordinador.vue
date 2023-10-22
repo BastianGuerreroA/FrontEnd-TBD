@@ -21,7 +21,7 @@
             <a class="nav-link active" aria-current="page"><router-link :to="devuelta">Home</router-link></a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">Emergencias Registradas</a>
+            <a class="nav-link active" aria-current="page"><router-link :to="crearEmergencia">Crear emergencia</router-link></a>
           </li>
         </ul>
         <form class="d-flex" role="search">
@@ -42,13 +42,15 @@ export default {
   data: function () {
     return {
       devuelta: "",
+      crearEmergencia: "",
       idUser: null,
       correro: "",
     }
   },
   mounted() {
     this.idUser = localStorage.getItem("id");
-    this.devuelta = "/home/" + localStorage.getItem("id");
+    this.devuelta = "/coordinador/" + localStorage.getItem("id");
+    this.crearEmergencia = "/coordinador/" + localStorage.getItem("id") + "/crearEmergencia";
   },
   methods:{
     cerrarSesion(){
@@ -56,7 +58,7 @@ export default {
       this.$router.push("/")
     },
     editar(id){
-      this.$router.push("/home/"+ id +"/editar")
+      this.$router.push("/coordinador/"+ id +"/editar")
     }
   }
 

@@ -8,7 +8,7 @@
       <!-- Login Form -->
       <form v-on:submit.prevent="login">
         <input type="text" id="login" class="fadeIn second" name="login" placeholder="Correo" v-model = "email">
-        <input type="text" id="password" class="fadeIn third" name="login" placeholder="Password" v-model ="clave">
+        <input type="password" id="password" class="fadeIn third" name="login" placeholder="Password" v-model ="clave">
         <input type="submit" class="fadeIn fourth" value="Log In">
       </form>
 
@@ -51,7 +51,15 @@ export default {
         if(response.data.status == "ok"){
           localStorage.setItem("id", response.data.id)
           localStorage.setItem("token", response.data.token)
-          this.$router.push("/home/"+response.data.id);
+          localStorage.setItem("rol", response.data.rol)
+          this.error = true;
+          this.errorMessage = "Usuario o contraseña incorrectos";
+          if(response.data.rol == "VOLUNTARIO"){
+            this.$router.push("/home/"+response.data.id);
+          }
+          else if(response.data.rol == "COORDINADOR"){
+            this.$router.push("/coordinador/"+response.data.id);
+          }
         }else{
           this.error = true;
           this.errorMessage = "Usuario o contraseña incorrectos";

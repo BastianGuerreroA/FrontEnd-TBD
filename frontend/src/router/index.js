@@ -3,6 +3,10 @@ import VueRouter from 'vue-router'
 import HomeViewLogin from '../views/HomeViewLogin.vue'
 import Register from '../views/HomeViewRegister.vue'
 import UserView from "@/views/UserView.vue";
+import Editar from "@/views/Editar.vue";
+import CoordinadorView from "@/views/CoordinadorView.vue";
+import EditarCoordinador from "@/views/EditarCoordinador.vue";
+import CrearEmergencia from "@/views/CrearEmergencia.vue";
 
 Vue.use(VueRouter)
 
@@ -18,9 +22,29 @@ const routes = [
     component: UserView
   },
   {
+    path: '/coordinador/:id',
+    name: 'coordinador',
+    component: CoordinadorView
+  },
+  {
     path: '/register',
     name: 'register',
     component: Register
+  },
+  {
+    path: '/home/:id/editar',
+    name: 'editar',
+    component: Editar
+  },
+  {
+    path: '/coordinador/:id/editar',
+    name: 'editarCoordinador',
+    component: EditarCoordinador
+  },
+  {
+    path: '/coordinador/:id/crearEmergencia',
+    name: 'crearEmergencia',
+    component: CrearEmergencia
   }
 ]
 

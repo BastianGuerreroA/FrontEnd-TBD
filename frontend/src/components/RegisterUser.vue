@@ -11,8 +11,9 @@
 
       <!-- Login Form -->
       <form v-on:submit.prevent="login">
-        <input type="text" id="login" class="fadeIn second" name="login" placeholder="Correo" v-model ="correo">
+        <input type="text" id="login" class="fadeIn second" name="login" placeholder="Correo" v-model ="email">
         <input type="text" id="password" class="fadeIn third" name="login" placeholder="Password" v-model ="password">
+        <input type="hidden" name="rol" v-model="rol">
         <br>
         <input type="submit" class="fadeIn fourth" value="Register">
       </form>
@@ -39,7 +40,8 @@ export default {
   data: function(){
     return {
       password:"",
-      correo:"",
+      email:"",
+      rol: "VOLUNTARIO",
       error: false,
       errorMessage: ""
     }
@@ -47,16 +49,17 @@ export default {
   methods:{
     login(){
       let json = {
-        "correo": this.correo,
-        "password": this.password
+        "email": this.email,
+        "password": this.password,
+        "rol": this.rol
       };
       axios.post("http://localhost:8090/api/register", json)
           .then(response => {
-            if(response.data == "OK"){
-              this.$router.push("/login");
+            if(response.data.status == "registrado"){
+              this.$router.push("/");
             }else{
               this.error = true;
-              this.errorMessage = "Usuario o contraseña incorrectos";
+              this.errorMessage = "No se puedo registrar";
             }
           })
     }

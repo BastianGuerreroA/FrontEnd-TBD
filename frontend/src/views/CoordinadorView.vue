@@ -1,10 +1,6 @@
 <template>
-  <div class="about cuerpo">
+  <div class="about">
     <Navbar/>
-    <br>
-    <div>
-      <p>Bienvenido!: {{correo}}</p>
-    </div>
     <br><br>
     <div class="container">
       <table class="table table-hover table-dark">
@@ -27,7 +23,7 @@
           <td>{{emergencia.fecha}}</td>
           <td>{{emergencia.activa}}</td>
           <td>{{emergencia.id_institucion}}</td>
-          <td><button type="button" class="btn btn-outline-success">Registrarse</button></td>
+          <td><button type="button" class="btn btn-danger">Eliminar</button></td>
         </tr>
         </tbody>
       </table>
@@ -38,7 +34,7 @@
 </template>
 
 <script>
-import Navbar from "@/components/Navbar.vue";
+import Navbar from "@/components/NavbarCoordinador.vue";
 import Footer from "@/components/Footer.vue";
 import axios from "axios";
 
@@ -52,7 +48,6 @@ export default {
     return {
       idUser: null,
       listaEmergencias: null,
-      correo: "",
     }
   },
   mounted() {
@@ -79,21 +74,11 @@ export default {
       this.listaEmergencias = data.data;
     })
 
-    axios.get("http://localhost:8090/api/usuario/" + this.idUser)
-        .then(data =>{
-          this.correo = data.data.email;
-        })
-
   }
 }
 </script>
 
 <style scoped>
-
-.cuerpo{
-  color : white;
-}
-
 </style>
 ```
 

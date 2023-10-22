@@ -22,6 +22,11 @@ export default {
   name: 'HomeView',
   components: {
     LoginUser
+  },
+  mounted() {
+    if(localStorage.getItem("id") != null){
+      this.$router.push("/home/"+localStorage.getItem("id"));
+    }
   }
 }
 </script>
