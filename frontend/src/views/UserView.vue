@@ -3,10 +3,11 @@
     <Navbar/>
     <br>
     <div>
-      <p>Bienvenido!: {{correo}}</p>
+      <h3>Bienvenido!: {{correo}}</h3>
     </div>
     <br><br>
     <div class="container">
+      <h4>Emergencias Activas(La tabla toma todas !!!)</h4>
       <table class="table table-hover table-dark">
         <thead>
         <tr>
@@ -27,7 +28,7 @@
           <td>{{emergencia.fecha}}</td>
           <td>{{emergencia.activa}}</td>
           <td>{{emergencia.id_institucion}}</td>
-          <td><button type="button" class="btn btn-outline-success">Registrarse</button></td>
+          <td><BotonRequisitos :idEmergencia="emergencia.id_emergencia"/></td>
         </tr>
         </tbody>
       </table>
@@ -40,13 +41,16 @@
 <script>
 import Navbar from "@/components/Navbar.vue";
 import Footer from "@/components/Footer.vue";
+import BotonRequisitos from "@/components/BotonRequisitos.vue";
 import axios from "axios";
+
 
 export default {
   name: 'AboutView',
   components: {
     Navbar,
-    Footer
+    Footer,
+    BotonRequisitos
   },
   data: function(){
     return {
@@ -68,22 +72,26 @@ export default {
       this.$router.push("/");
     }
 
-
-    let direccion= "http://localhost:8090/api/emergencia";
-    axios.get(direccion, {
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem("token")}`
-      }
-    })
-        .then(data =>{
-      this.listaEmergencias = data.data;
-    })
+    this.getAll();
 
     axios.get("http://localhost:8090/api/usuario/" + this.idUser)
         .then(data =>{
           this.correo = data.data.email;
         })
 
+  },
+  methods:{
+    getAll(){
+      let direccion= "http://localhost:8090/api/emergencia";
+      axios.get(direccion, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`
+        }
+      })
+          .then(data =>{
+            this.listaEmergencias = data.data;
+          })
+    }
   }
 }
 </script>

@@ -49,6 +49,8 @@ export default {
   mounted() {
     this.idUser = localStorage.getItem("id");
     this.devuelta = "/home/" + localStorage.getItem("id");
+
+
   },
   methods:{
     cerrarSesion(){

@@ -23,7 +23,7 @@
           <td>{{emergencia.fecha}}</td>
           <td>{{emergencia.activa}}</td>
           <td>{{emergencia.id_institucion}}</td>
-          <td><button type="button" class="btn btn-danger">Eliminar</button></td>
+          <td> <button type="button" class="btn btn btn-outline-danger" @click="eliminarEmergencia(emergencia.id_emergencia)">Eliminar</button></td>
         </tr>
         </tbody>
       </table>
@@ -72,10 +72,39 @@ export default {
     })
         .then(data =>{
       this.listaEmergencias = data.data;
-    })
+    });
 
-  }
-}
+  },
+  methods: {
+    eliminarEmergencia(id) {
+      if (confirm("¿Estás seguro de que deseas eliminar esta emergencia?")) {
+        axios.delete(`http://localhost:8090/api/emergencia/${id}`, {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        })
+            .then(() => {
+              // Recargar la lista de emergencias después de eliminar
+              this.cargarEmergencias();
+            })
+            .catch(error => {
+              console.error("Error al eliminar la emergencia:", error);
+            });
+      }
+    },
+    cargarEmergencias() {
+      let direccion = "http://localhost:8090/api/emergencia";
+      axios.get(direccion, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      })
+          .then(data => {
+            this.listaEmergencias = data.data;
+          });
+    },
+  },
+};
 </script>
 
 <style scoped>
