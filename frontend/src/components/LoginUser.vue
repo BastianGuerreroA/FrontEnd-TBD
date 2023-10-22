@@ -49,6 +49,8 @@ export default {
       .then(response => {
         console.log(response);
         if(response.data.status == "ok"){
+          localStorage.setItem("id", response.data.id)
+          localStorage.setItem("token", response.data.token)
           this.$router.push("/home/"+response.data.id);
         }else{
           this.error = true;
