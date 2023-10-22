@@ -7,6 +7,8 @@ import Editar from "@/views/Editar.vue";
 import CoordinadorView from "@/views/CoordinadorView.vue";
 import EditarCoordinador from "@/views/EditarCoordinador.vue";
 import CrearEmergencia from "@/views/CrearEmergencia.vue";
+import CrearHabilidad from "@/views/CrearHabilidad.vue";
+import RequerimientosEmergencia from "@/views/RequerimientosEmergencia.vue";
 
 Vue.use(VueRouter)
 
@@ -45,6 +47,16 @@ const routes = [
     path: '/coordinador/:id/crearEmergencia',
     name: 'crearEmergencia',
     component: CrearEmergencia
+  },
+  {
+    path: '/coordinador/:id/crearHabilidad',
+    name: 'crearHabilidad',
+    component: CrearHabilidad
+  },
+  {
+    path: '/coordinador/:id/requerimientosEmergencia',
+    name: 'requerimientosEmergencia',
+    component: RequerimientosEmergencia
   }
 ]
 

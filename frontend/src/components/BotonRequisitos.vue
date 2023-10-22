@@ -19,11 +19,11 @@
                 <input type="number" class="form-control" id="recipient-edad" v-model = "edad">
               </div>
               <div class="mb-3">
-                <label for="recipient-Altura" class="col-form-label">Altura:</label>
+                <label for="recipient-Altura" class="col-form-label">Altura (cm):</label>
                 <input type="number" class="form-control" id="recipient-Altura" v-model = "altura">
               </div>
               <div class="mb-3">
-                <label for="recipient-Peso" class="col-form-label">Peso:</label>
+                <label for="recipient-Peso" class="col-form-label">Peso (kg):</label>
                 <input type="number" class="form-control" id="recipient-Peso" v-model = "peso">
               </div>
               <div class="mb-3">

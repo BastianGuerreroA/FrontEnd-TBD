@@ -23,6 +23,9 @@
           <li class="nav-item">
             <a class="nav-link active" aria-current="page"><router-link :to="crearEmergencia">Crear emergencia</router-link></a>
           </li>
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page"><router-link :to="crearHabilidad">Crear Habilidad</router-link></a>
+          </li>
         </ul>
         <form class="d-flex" role="search">
           <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
@@ -43,6 +46,7 @@ export default {
     return {
       devuelta: "",
       crearEmergencia: "",
+      crearHabilidad: "",
       idUser: null,
       correro: "",
     }
@@ -51,6 +55,7 @@ export default {
     this.idUser = localStorage.getItem("id");
     this.devuelta = "/coordinador/" + localStorage.getItem("id");
     this.crearEmergencia = "/coordinador/" + localStorage.getItem("id") + "/crearEmergencia";
+    this.crearHabilidad = "/coordinador/" + localStorage.getItem("id") + "/crearHabilidad";
   },
   methods:{
     cerrarSesion(){

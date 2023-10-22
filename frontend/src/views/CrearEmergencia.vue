@@ -57,6 +57,7 @@ export default {
     return {
       idUser: null,
       form: {
+        "id_emergencia": "",
         "asunto": "",
         "descripcion": "",
         "direccion": "",
@@ -79,6 +80,8 @@ export default {
         .catch(error => {
           console.error("Error al obtener la lista de instituciones:", error);
         });
+
+
   },
   methods: {
     crear() {
@@ -101,7 +104,12 @@ export default {
           .catch(error => {
             console.error("Error al crear la emergencia:", error);
           });
+      this.$router.push("/coordinador/" + localStorage.getItem("id") + "/requerimientosEmergencia")
+
     },
+
+
+
     devuelta() {
       this.$router.push("/coordinador/" + localStorage.getItem("id"));
     }
