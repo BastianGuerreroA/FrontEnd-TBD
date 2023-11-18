@@ -9,6 +9,7 @@ import EditarCoordinador from "@/views/EditarCoordinador.vue";
 import CrearEmergencia from "@/views/CrearEmergencia.vue";
 import CrearHabilidad from "@/views/CrearHabilidad.vue";
 import RequerimientosEmergencia from "@/views/RequerimientosEmergencia.vue";
+import Map from "@/views/Map.vue";
 
 Vue.use(VueRouter)
 
@@ -57,6 +58,11 @@ const routes = [
     path: '/coordinador/:id/requerimientosEmergencia',
     name: 'requerimientosEmergencia',
     component: RequerimientosEmergencia
+  },
+  {
+    path: '/coordinador/:id/map',
+    name: 'map',
+    component: Map
   }
 ]
 
