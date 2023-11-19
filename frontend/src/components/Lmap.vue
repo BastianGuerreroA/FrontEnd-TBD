@@ -14,6 +14,7 @@ import L from 'leaflet';
 import 'leaflet-minimap/dist/Control.MiniMap.min.css';
 import 'leaflet-minimap';
 import axios from "axios";
+import booleanPointInPolygon from '@turf/boolean-point-in-polygon';
 
 export default {
   name: 'LmapComponent',
@@ -22,7 +23,8 @@ export default {
       map: null,
       minimap: null,
       regions: [],
-      tareas: []
+      tareas: [],
+      selectedRegion: null,
     };
   },
   mounted() {
@@ -86,12 +88,15 @@ export default {
       const selectedLocation = event.target.value;
       if (selectedLocation === '-1') {
         // Si se selecciona la opción predeterminada, centrar en Chile
+        this.selectedRegion = null;
         this.map.flyTo([-35.6751, -71.543], 6, { duration: 1.5 });
       } else {
         // Si se selecciona una ubicación específica, va centrar en esa ubicación con flyTo(Te dirige a la ubicacion seleccionada y de manera suave)
         const [lat, lng] = selectedLocation.split(',').map(Number);
+        this.selectedRegion = this.regions.find(region => region.center.lat === lat && region.center.lng === lng);
         this.map.flyTo([lat, lng], 8, { duration: 1.5 });
       }
+      this.agregaMarcadores();
     },
     fetchTareaData() {
       axios.get("http://localhost:8091/api/tarea")
@@ -106,7 +111,20 @@ export default {
           });
     },
     agregaMarcadores() {
-      this.tareas.forEach(tarea => {
+      // Limpiar los marcadores existentes
+      this.map.eachLayer(layer => {
+        if (layer instanceof L.Marker || layer instanceof L.CircleMarker) {
+          layer.remove();
+        }
+      });
+
+      // Filtrar tareas según la región seleccionada
+      const tareasToDisplay = this.selectedRegion
+          ? this.tareas.filter(tarea => this.isTareaInRegion(tarea))
+          : [];
+
+      // Mostrar los marcadores
+      tareasToDisplay.forEach(tarea => {
         const estado = tarea.estado_tarea ? 'Activo' : 'Solucionado';
         const marker = L.circleMarker(L.latLng(tarea.latitud, tarea.longitud), {
           color: 'red',
@@ -117,6 +135,20 @@ export default {
 
         marker.bindPopup(`<strong>Asunto: ${tarea.asunto_tarea}</strong><br>Estado: ${estado}`);
       });
+    },
+
+    isTareaInRegion(tarea) {
+      // Verificar si la tarea está dentro de la región seleccionada
+      return (
+          this.selectedRegion &&
+          booleanPointInPolygon(
+              [tarea.latitud, tarea.longitud],
+              {
+                type: 'Polygon',
+                coordinates: [this.selectedRegion.invertedCoordinates],
+              }
+          )
+      );
     },
   },
 };

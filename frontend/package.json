@@ -13,6 +13,7 @@
     "@fortawesome/free-regular-svg-icons": "^6.4.2",
     "@fortawesome/free-solid-svg-icons": "^6.4.2",
     "@fortawesome/vue-fontawesome": "^2.0.10",
+    "@turf/turf": "^6.5.0",
     "axios": "^1.5.1",
     "bootstrap": "^5.3.2",
     "bootstrap-icons": "^1.11.1",
