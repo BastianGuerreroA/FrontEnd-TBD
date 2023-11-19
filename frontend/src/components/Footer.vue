@@ -1,7 +1,7 @@
 <template>
   <div>
     <footer>
-      <p>© 2021 - Gestión de voluntariados</p>
+      <p>© 2023 - Gestión de voluntariados</p>
     </footer>
   </div>
 </template>

@@ -26,7 +26,10 @@ export default {
   mounted() {
     this.fetchRegionData();
     this.initializeMap();
+    
     this.agregaMarcadores();
+    
+    
 
   },
   methods: {
@@ -52,11 +55,13 @@ export default {
 
     },
     fetchRegionData() {
-      axios.get("http://localhost:8090/api/region")
+      axios.get("http://localhost:8091/api/region")
           .then(response => {
             this.regions = response.data;
             console.log(response.data);
             console.log(this.regions);
+            this.addChilePolygons();
+            
           })
           .catch(error => {
             console.error("Error fetching region data:", error);
@@ -64,8 +69,11 @@ export default {
     },
     addChilePolygons() {
       // Añadir polígonos al mapa utilizando los datos almacenados en la variable 'regions'
+      
       this.regions.forEach(region => {
-        const polygon = L.polygon(region.geom.coordinates, { color: 'green' }).addTo(this.map);
+        const invertedCoordinates = region.geom.coordinates[0].map(point => [point[1], point[0]]);
+        const polygon = L.polygon(invertedCoordinates, { color: 'green' }).addTo(this.map);
+        console.log("lo metimos");
         polygon.bindPopup(region.name);
       });
     },
