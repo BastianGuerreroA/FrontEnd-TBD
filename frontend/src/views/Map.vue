@@ -36,7 +36,23 @@ export default {
       listaEmergencias: null,
       correo: "",
     }
-  }
+  },
+  mounted() {
+    this.idUser = localStorage.getItem("id");
+    this.correo = localStorage.getItem("correo");
+
+    if(localStorage.getItem("id") != null){
+      if(localStorage.getItem("id") == this.$route.params.id){
+        this.idUser = this.$route.params.id;
+      }
+      else {
+        this.$router.push("/coordinador/" + localStorage.getItem("id") + "/map");
+      }
+    }
+    else {
+      this.$router.push("/");
+    }
+  },
 }
 </script>
 
