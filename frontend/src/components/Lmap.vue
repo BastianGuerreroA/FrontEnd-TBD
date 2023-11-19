@@ -13,47 +13,21 @@ import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
 import 'leaflet-minimap/dist/Control.MiniMap.min.css';
 import 'leaflet-minimap';
+import axios from "axios";
 export default {
   name: 'LmapComponent',
   data() {
     return {
       map: null,
       minimap: null,
-      chileCoordinates: [
-        [-56.3167, -68.1833],
-        [-17.4984, -66.1496],
-        [-17.4984, -66.1496],
-        [-9.7619, -70.5136],
-        [-9.7619, -70.5136],
-        [-22.7359, -67.166],
-        [-52.0986, -69.2019],
-        [-53.5011, -70.3603],
-        [-75.4999, -70.2586],
-        [-75.4999, -70.2586],
-        [-79.9999, -66.9196],
-        [-67.3075, -66.5456],
-        [-66.6009, -67.6792],
-        [-68.6347, -71.0147],
-        [-71.1076, -74.2767],
-        [-68.6347, -71.0147],
-        [-68.6347, -71.0147],
-        [-66.6009, -67.6792],
-        [-66.3293, -68.3392],
-        [-53.5011, -70.3603],
-        [-52.0986, -69.2019],
-        [-22.7359, -67.166],
-        [-9.7619, -70.5136],
-        [ -9.7619, -70.5136],
-        [-17.4984, -66.1496],
-        [-17.4984, -66.1496],
-        [-56.3167, -70.1833],
-      ],
+      regions: []
     };
   },
   mounted() {
+    this.fetchRegionData();
     this.initializeMap();
-    this.addChilePolygon();
     this.agregaMarcadores();
+
   },
   methods: {
     initializeMap() {
@@ -77,10 +51,23 @@ export default {
 
 
     },
-    addChilePolygon() { //Añadir esta funcion al mounted para que se ejecute al cargar la pagina, por si quieren probar.
-      // Añadir una capa de polígono que representa a Chile
-      L.polygon(this.chileCoordinates, { color: 'green' }).addTo(this.map);
-
+    fetchRegionData() {
+      axios.get("http://localhost:8090/api/region")
+          .then(response => {
+            this.regions = response.data;
+            console.log(response.data);
+            console.log(this.regions);
+          })
+          .catch(error => {
+            console.error("Error fetching region data:", error);
+          });
+    },
+    addChilePolygons() {
+      // Añadir polígonos al mapa utilizando los datos almacenados en la variable 'regions'
+      this.regions.forEach(region => {
+        const polygon = L.polygon(region.geom.coordinates, { color: 'green' }).addTo(this.map);
+        polygon.bindPopup(region.name);
+      });
     },
     updateMap(event) {
       const selectedLocation = event.target.value;
@@ -88,7 +75,7 @@ export default {
         // Si se selecciona la opción predeterminada, centrar en Chile
         this.map.flyTo([-35.6751, -71.543], 6, { duration: 1.5 });
       } else {
-        // Si se selecciona una ubicación específica, centrar en esa ubicación con flyTo(Te dirije a la ubicacion seleccionada y de manera suave)
+        // Si se selecciona una ubicación específica, va centrar en esa ubicación con flyTo(Te dirije a la ubicacion seleccionada y de manera suave)
         const [lat, lng] = selectedLocation.split(',').map(Number);
         this.map.flyTo([lat, lng], 13, { duration: 1.5 });
       }
