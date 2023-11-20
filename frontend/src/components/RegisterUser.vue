@@ -53,7 +53,7 @@ export default {
         "password": this.password,
         "rol": this.rol
       };
-      axios.post("http://localhost:8090/api/register", json)
+      axios.post("http://localhost:8091/api/register", json)
           .then(response => {
             if(response.data.status == "registrado"){
               this.$router.push("/");

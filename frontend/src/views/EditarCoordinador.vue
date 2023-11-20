@@ -47,7 +47,7 @@ export default {
   },
   mounted: function (){
     this.idUser = this.$route.params.id;
-    axios.get("http://localhost:8090/api/usuario/" + this.idUser)
+    axios.get("http://localhost:8091/api/usuario/" + this.idUser)
         .then(data =>{
           this.form.email = data.data.email;
           this.form.password = data.data.password;
@@ -58,7 +58,7 @@ export default {
   },
   methods:{
     actualizar(){
-      axios.put("http://localhost:8090/api/usuario/actualizar" , this.form)
+      axios.put("http://localhost:8091/api/usuario/actualizar" , this.form)
           .then(data =>{
             console.log(data);
           })

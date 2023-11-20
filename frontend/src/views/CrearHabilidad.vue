@@ -44,7 +44,7 @@ export default {
         "habilidad": this.form.habilidad,
 
       };
-      axios.post("http://localhost:8090/api/habilidades/create", json, {
+      axios.post("http://localhost:8091/api/habilidades/create", json, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         }

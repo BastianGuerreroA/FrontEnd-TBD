@@ -69,7 +69,7 @@ export default {
     }
   },
   created() {
-    axios.get("http://localhost:8090/api/institucion", {
+    axios.get("http://localhost:8091/api/institucion", {
       headers: {
         Authorization: `Bearer ${localStorage.getItem("token")}`,
       },
@@ -93,7 +93,7 @@ export default {
         "activa": true,
         "id_institucion": this.form.id_institucion,
       };
-      axios.post("http://localhost:8090/api/emergencia/crear", json, {
+      axios.post("http://localhost:8091/api/emergencia/crear", json, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         }

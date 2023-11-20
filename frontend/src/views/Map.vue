@@ -19,7 +19,7 @@
 </template>
 
 <script>
-import Navbar from "@/components/Navbar.vue";
+import Navbar from "@/components/NavbarCoordinador.vue";
 import Footer from "@/components/Footer.vue";
 import Lmap from "@/components/Lmap.vue";
 

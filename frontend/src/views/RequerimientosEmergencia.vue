@@ -45,7 +45,7 @@ export default {
     }
   },
   created() {
-    axios.get("http://localhost:8090/api/habilidades/listar", {
+    axios.get("http://localhost:8091/api/habilidades/listar", {
       headers: {
         Authorization: `Bearer ${localStorage.getItem("token")}`,
       },
@@ -57,7 +57,7 @@ export default {
           console.error("Error al obtener la lista de habilidades:", error);
         });
 
-    axios.get("http://localhost:8090/api/emergencia/last", {
+    axios.get("http://localhost:8091/api/emergencia/last", {
       headers: {
         Authorization: `Bearer ${localStorage.getItem("token")}`,
       },
@@ -80,7 +80,7 @@ export default {
         "id_habilidad": this.form.id_habilidad,
       };
 
-      axios.post("http://localhost:8090/api/eme_habilidades", json, {
+      axios.post("http://localhost:8091/api/eme_habilidades", json, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         }

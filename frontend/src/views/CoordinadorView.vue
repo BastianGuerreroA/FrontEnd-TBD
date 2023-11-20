@@ -11,7 +11,6 @@
           <th scope="col">Dirección</th>
           <th scope="col">Fecha</th>
           <th scope="col">Estado</th>
-          <th scope="col">Institución</th>
           <th scope="col">Acción</th>
         </tr>
         </thead>
@@ -21,8 +20,7 @@
           <td>{{emergencia.descripcion}}</td>
           <td>{{emergencia.direccion}}</td>
           <td>{{emergencia.fecha}}</td>
-          <td>{{emergencia.activa}}</td>
-          <td>{{emergencia.id_institucion}}</td>
+          <td>{{ emergencia.activa ? 'Activo' : 'Solucionado' }}</td>
           <td> <button type="button" class="btn btn btn-outline-danger" @click="eliminarEmergencia(emergencia.id_emergencia)">Eliminar</button></td>
         </tr>
         </tbody>
@@ -64,7 +62,7 @@ export default {
     }
 
 
-    let direccion= "http://localhost:8090/api/emergencia";
+    let direccion= "http://localhost:8091/api/emergencia";
     axios.get(direccion, {
       headers: {
         Authorization: `Bearer ${localStorage.getItem("token")}`
@@ -78,7 +76,7 @@ export default {
   methods: {
     eliminarEmergencia(id) {
       if (confirm("¿Estás seguro de que deseas eliminar esta emergencia?")) {
-        axios.delete(`http://localhost:8090/api/emergencia/${id}`, {
+        axios.delete(`http://localhost:8091/api/emergencia/${id}`, {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
@@ -93,7 +91,7 @@ export default {
       }
     },
     cargarEmergencias() {
-      let direccion = "http://localhost:8090/api/emergencia";
+      let direccion = "http://localhost:8091/api/emergencia";
       axios.get(direccion, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,

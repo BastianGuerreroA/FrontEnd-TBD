@@ -16,7 +16,6 @@
           <th scope="col">Dirección</th>
           <th scope="col">Fecha</th>
           <th scope="col">Estado</th>
-          <th scope="col">Institución</th>
           <th scope="col">Acción</th>
         </tr>
         </thead>
@@ -26,8 +25,7 @@
           <td>{{emergencia.descripcion}}</td>
           <td>{{emergencia.direccion}}</td>
           <td>{{emergencia.fecha}}</td>
-          <td>{{emergencia.activa}}</td>
-          <td>{{emergencia.id_institucion}}</td>
+          <td>{{ emergencia.activa ? 'Activo' : 'Solucionado' }}</td>
           <td><BotonRequisitos :idEmergencia="emergencia.id_emergencia"/></td>
         </tr>
         </tbody>
@@ -74,7 +72,7 @@ export default {
 
     this.getAll();
 
-    axios.get("http://localhost:8090/api/usuario/" + this.idUser)
+    axios.get("http://localhost:8091/api/usuario/" + this.idUser)
         .then(data =>{
           this.correo = data.data.email;
         })
@@ -82,7 +80,7 @@ export default {
   },
   methods:{
     getAll(){
-      let direccion= "http://localhost:8090/api/emergencia";
+      let direccion= "http://localhost:8091/api/emergencia";
       axios.get(direccion, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`

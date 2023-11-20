@@ -45,7 +45,7 @@ export default {
         "email": this.email,
         "clave": this.clave
       };
-      axios.post("http://localhost:8090/api/login", json)
+      axios.post("http://localhost:8091/api/login", json)
       .then(response => {
         console.log(response);
         if(response.data.status == "ok"){
